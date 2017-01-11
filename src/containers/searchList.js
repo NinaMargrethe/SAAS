@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {addAlbum} from '../actions/index';
 
 class SearchList extends Component {
+
+    constructor(props){
+        super(props);
+        this.renderSearchResult = this.renderSearchResult.bind(this);
+    }
 
     render() {
         if(!this.props.searchResult) return null;
 
         const albums = this.props.searchResult.albums.items.map(album => {
-            const url = album.images[2].url;
+            const images = album.images;
             const name = album.name;
             return {
-                url, name
+                images, name
             };
         });
 
@@ -27,11 +34,15 @@ class SearchList extends Component {
 
     renderSearchResult(album, counter) {
         return (
-            <li key={ counter } className="list-group-item clearfix vertical-align">
-                <img className="img-responsive" src={ album.url } />
+            <li onClick={this.onAlbumClick.bind(this, album)} key={ counter } className="list-group-item clearfix vertical-align">
+                <img className="img-responsive" src={ album.images[2].url } />
                 <span>{ album.name }</span>
             </li>
         );
+    }
+
+    onAlbumClick(album){
+        this.props.addAlbum(album);
     }
 }
 
@@ -41,4 +52,8 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(SearchList);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({addAlbum}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchList);

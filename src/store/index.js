@@ -5,7 +5,7 @@ import DevTools from '../containers/devTools';
 
 // May be used to store default values at reducers key's
 const initialState = {
-    albums: [
+/*    albums: [
         {
             id: '3vGtqTr5he9uQfusQWJ0oC',
             url: "https://i.scdn.co/image/463e545ef86af314c4b7c79ff17892531a80770e",
@@ -22,7 +22,7 @@ const initialState = {
             name: 'Never Gonna Give You Up'
         }
     ]
-};
+*/};
 
 // Include to use extra features as middleware and dev tools
 const enhancers = compose(
