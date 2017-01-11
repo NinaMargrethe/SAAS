@@ -26,7 +26,9 @@ class SearchList extends Component {
 }
 
 function mapStateToProps(state) {
-    return { searchResult : state.search.searchResult };
+    return {
+        searchResult : state.search.searchResult
+    };
 }
 
 export default connect(mapStateToProps)(SearchList);
