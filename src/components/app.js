@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 
-import SearchBar from '../containers/searchContainer';
-import SearchList from '../containers/searchList';
 import AlbumList from '../containers/albumList';
+import SearchOverlay from '../containers/searchOverlay';
 
 export default class App extends Component {
-  render() {
-    return (
-      <div>
-        <SearchBar/>
-        <SearchList />
-        <AlbumList />
-      </div>
-    );
-  }
+
+    render() {
+        return (
+            <div>
+                <SearchOverlay />
+                <AlbumList />
+            </div>
+        );
+    }
 }

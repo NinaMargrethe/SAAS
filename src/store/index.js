@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import ReduxPromise from 'redux-promise';
 import reducers from '../reducers';
-import DevTools from '../containers/DevTools';
+import DevTools from '../containers/devTools';
 
 // May be used to store default values at reducers key's
 const initialState = {
