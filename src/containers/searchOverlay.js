@@ -36,15 +36,20 @@ class SearchOverlay extends Component {
                     <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
                 <ReactModal
+
                     isOpen={this.state.showModal}
                     contentLabel="Search for album photos and add them to your album view."
                     onRequestClose={this.handleCloseModal}
-                >
+                    className="search-modal"
+                    overlayClassName="search-overlay">
+
                     <SearchBar />
                     <SearchList />
+
                     <button className="btn btn-primary" onClick={this.handleCloseModal}>
                         <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
+
                 </ReactModal>
             </div>
         );

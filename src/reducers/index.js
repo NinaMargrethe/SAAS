@@ -6,7 +6,6 @@ import AddAlbumReducer from './addAlbumReducer';
 const rootReducer = combineReducers({
     search: SearchReducer,
     albums: AddAlbumReducer
-
 });
 
 export default rootReducer;

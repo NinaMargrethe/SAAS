@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class AlbumList extends Component{
     constructor(props){
-    super(props);
+        super(props);
     }
 
     render(){
@@ -25,7 +25,7 @@ class AlbumList extends Component{
 }
 
 function mapStateToProps({albums}) {
-    return {albums};
+    return { albums };
 }
 
 export default connect(mapStateToProps)(AlbumList);

@@ -15,19 +15,20 @@ class SearchBar extends Component{
 
     render(){
         return (
-            <form className="input-group" onSubmit={this.onSubmit}>
-                <input
-                    placeholder="Search"
-                    className="form-control"
-                    autoFocus="true"
-                    value={this.state.album}
-                    onChange={this.onChange}
-                    />
-                <span className="input-group-btn">
-                    <button type="submit" className="btn btn-primary">Search</button>
-                </span>
-            </form>
-
+            <nav id="search-bar" className="navbar navbar-default">
+                <div className="container-fluid">
+                    <form className="navbar-form navbar-left" role="search" onSubmit={this.onSubmit}>
+                            <input type="text"
+                                   placeholder="Enter album ..."
+                                   className="form-control"
+                                   autoFocus="true"
+                                   value={this.state.album}
+                                   onChange={this.onChange}
+                            />
+                        <button type="submit" className="btn btn-default">Search</button>
+                    </form>
+                </div>
+            </nav>
         );
     }
 

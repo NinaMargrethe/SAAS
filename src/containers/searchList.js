@@ -21,10 +21,8 @@ class SearchList extends Component {
             };
         });
 
-        console.log("Albums: ", albums);
-
         return (
-            <div className="row">
+            <div id="search-list" className="row">
                 <ul className="list-group">
                     { albums.map(this.renderSearchResult) }
                 </ul>
@@ -35,8 +33,10 @@ class SearchList extends Component {
     renderSearchResult(album, counter) {
         return (
             <li onClick={this.onAlbumClick.bind(this, album)} key={ counter } className="list-group-item clearfix vertical-align">
-                <img className="img-responsive" src={ album.images[2].url } />
-                <span>{ album.name }</span>
+                <a href="#">
+                    <img className="img-responsive" src={ album.images[2].url } />
+                    <span>{ album.name }</span>
+                </a>
             </li>
         );
     }
