@@ -16,8 +16,9 @@ class SearchList extends Component {
         const albums = this.props.searchResult.albums.items.map(album => {
             const images = album.images;
             const name = album.name;
+            const id = album.external_urls.spotify;
             return {
-                images, name
+                images, name, id
             };
         });
 

@@ -18,7 +18,10 @@ class AlbumList extends Component{
     renderAlbumList(album, counter){
         return(
             <div className="col-md-4" key={counter}>
-                <img src={album.images[1].url} alt={album.name} className="img-responsive"/>
+                <a href={album.id}>
+                    <img src={album.images[1].url} alt={album.name} className="img-responsive"/>
+                    {album.name}
+                </a>
             </div>
         )
     }
