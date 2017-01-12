@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ReactModal from 'react-modal';
+import { clearSearch } from '../actions/index';
+import { Jumbotron, Button, Glyphicon, Modal, ModalHeader, ModalBody } from 'react-bootstrap';
 
 import SearchBar from '../containers/searchContainer';
 import SearchList from '../containers/searchList';
@@ -27,37 +28,62 @@ class SearchOverlay extends Component {
 
     handleCloseModal () {
         this.setState({ showModal: false });
+        // Clear search field when closing modal
+        this.props.clearSearch();
     }
 
     render() {
-        return (
-            <div>
-                <button className="btn btn-primary" onClick={this.handleOpenModal}>
-                    <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
-                </button>
-                <ReactModal
 
-                    isOpen={this.state.showModal}
-                    contentLabel="Search for album photos and add them to your album view."
-                    onRequestClose={this.handleCloseModal}
-                    className="search-modal"
-                    overlayClassName="search-overlay">
+        const { albums } = this.props;
+        const noAlbums = !albums || albums.length == 0;
 
-                    <SearchBar />
-                    <SearchList />
+        const noAlbumsJSX = (
+            <Jumbotron className="search-jumbotron">
+                <h1>OBS!</h1>
+                <p>
+                    Det ser ikke ut til at du har lagt inn noen <i>album</i> enda.<br/>
+                    Gjør ditt første søk her:<br/><br/>
+                    <Button bsStyle="primary" bsSize="large" onClick={this.handleOpenModal} >
+                        <Glyphicon glyph="search" />
+                    </Button>
+                </p>
+            </Jumbotron>
+        );
 
-                    <button className="btn btn-primary" onClick={this.handleCloseModal}>
-                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-
-                </ReactModal>
+        const someAlbumsJSX = (
+            <div className="search-overlay-container">
+                <Button bsSize="large" bsStyle="default" onClick={this.handleOpenModal}>
+                    <Glyphicon glyph="search" /> Finn Album
+                </Button>
+                <hr/>
+                <Modal
+                    show={this.state.showModal}
+                    onHide={this.handleCloseModal}
+                    contentLabel="Search for album photos and add them to your album view.">
+                    <ModalHeader closeButton>
+                        <SearchBar/>
+                    </ModalHeader>
+                    <ModalBody>
+                        <SearchList/>
+                    </ModalBody>
+                </Modal>
             </div>
         );
+
+        if(noAlbums && !this.state.showModal) {
+            return noAlbumsJSX;
+        } else {
+            return someAlbumsJSX;
+        }
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch);
+function mapStateToProps({ albums, search }) {
+    return { albums, search };
 }
 
-export default connect(null, mapDispatchToProps)(SearchOverlay);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ clearSearch }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchOverlay);

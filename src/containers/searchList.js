@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {addAlbum} from '../actions/index';
+import { bindActionCreators } from 'redux';
+import { addAlbum } from '../actions/index';
+import { Image, Row, Col, Thumbnail, Grid } from 'react-bootstrap';
 
 class SearchList extends Component {
 
@@ -13,32 +14,39 @@ class SearchList extends Component {
     render() {
         if(!this.props.searchResult) return null;
 
+        console.log(this.props.searchResult);
+
         const albums = this.props.searchResult.albums.items.map(album => {
             const images = album.images;
+            const artists = album.artists.map((artist)=> artist.name);
             const name = album.name;
             const id = album.external_urls.spotify;
             return {
-                images, name, id
+                id, name, artists, images
             };
         });
 
         return (
-            <div id="search-list" className="row">
-                <ul className="list-group">
+            <Grid fluid>
+                <Row>
                     { albums.map(this.renderSearchResult) }
-                </ul>
-            </div>
+                </Row>
+            </Grid>
         );
     }
 
     renderSearchResult(album, counter) {
+
+        const artistAsString = album.artists.join(', ');
+
         return (
-            <li onClick={this.onAlbumClick.bind(this, album)} key={ counter } className="list-group-item clearfix vertical-align">
-                <a href="#">
-                    <img className="img-responsive" src={ album.images[2].url } />
-                    <span>{ album.name }</span>
-                </a>
-            </li>
+            <Col key={ album.id } md={6}>
+                <Thumbnail className="search-result" href="#" onClick={this.onAlbumClick.bind(this, album)}>
+                    <Image src={ album.images[2].url } thumbnail />
+                    <p><b>{ artistAsString }</b></p>
+                    <p>{ album.name }</p>
+                </Thumbnail>
+            </Col>
         );
     }
 

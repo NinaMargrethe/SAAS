@@ -15,3 +15,20 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+.search-overlay-container {
+    margin-top: 10px;
+}
+
+.search-jumbotron {
+    position: absolute !important;
+    left: 25%;
+    rigth: 25%;
+    top: 25%;
+    bottom: 25%;
+}
+
+.search-result {
+    height: 150px !important;
+    overflow: auto;
+}

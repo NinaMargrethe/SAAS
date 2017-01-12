@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {searchAlbums} from '../actions/index';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { searchAlbums } from '../actions/index';
+import { Navbar, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 class SearchBar extends Component{
     constructor(props){
@@ -10,30 +12,39 @@ class SearchBar extends Component{
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
     }
 
     render(){
+
         return (
-            <nav id="search-bar" className="navbar navbar-default">
-                <div className="container-fluid">
-                    <form className="navbar-form navbar-left" role="search" onSubmit={this.onSubmit}>
-                            <input type="text"
-                                   placeholder="Enter album ..."
-                                   className="form-control"
-                                   autoFocus="true"
-                                   value={this.state.album}
-                                   onChange={this.onChange}
-                            />
-                        <button type="submit" className="btn btn-default">Search</button>
-                    </form>
-                </div>
-            </nav>
+            <Navbar>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#">Finn Album</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Navbar.Form pullLeft>
+                        <form onSubmit={this.onSubmit}>
+                            <FormGroup>
+                                <FormControl
+                                    inputRef={ref => { this.searchBar = ref; }}
+                                    onChange={this.onChange}
+                                    type="text"
+                                />
+                            </FormGroup>
+                            <Button className="search-overlay-button" type="submit">Søk</Button>
+                        </form>
+                    </Navbar.Form>
+                </Navbar.Collapse>
+            </Navbar>
         );
     }
 
-    onChange(event){
-        this.setState({album: event.target.value})
+    onChange(){
+        const value = ReactDOM.findDOMNode(this.searchBar).value;
+        this.setState({album: value})
     }
 
     onSubmit(event){
