@@ -1,4 +1,6 @@
 import { renderComponent , expect } from '../test_helper';
+import React from 'react';
+import sinon from 'sinon';
 import App from '../../src/components/app';
 
 describe('App' , () => {
@@ -6,9 +8,13 @@ describe('App' , () => {
 
   beforeEach(() => {
     component = renderComponent(App);
+
   });
 
   it('renders something', () => {
     expect(component).to.exist;
   });
 });
+
+
+
