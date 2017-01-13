@@ -6,6 +6,15 @@ export const ADD_ALBUM = 'ADD_ALBUM';
 export const DELETE_ALBUM = 'DELETE_ALBUM';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 
+export function searchAlbumsFromLink(link) {
+    const request = axios.get(link);
+
+    return {
+        type: SEARCH_ALBUMS,
+        payload: request
+    }
+}
+
 export function searchAlbums(query) {
     const request = axios.get(`${ROOT_URL_FOR_SEARCH}?q=${query}&type=album`);
 
