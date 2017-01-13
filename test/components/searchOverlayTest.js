@@ -4,7 +4,6 @@ import React from 'react';
 import sinon from 'sinon';
 import SearchOverlay from '../../src/containers/searchOverlay';
 import {store} from '../../src/store/index';
-import ReactModal from 'react-modal';
 import { Jumbotron, Button, Glyphicon, Modal, ModalHeader, ModalBody } from 'react-bootstrap';
 
 
@@ -48,7 +47,7 @@ describe('Component: SearchOverlay', () => {
 
         expect(
             shallow(
-                <ReactModal {...props} ></ReactModal>
+                <Modal {...props} ></Modal>
             ).length
         ).to.equal(1);
     });
