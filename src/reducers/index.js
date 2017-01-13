@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import SearchReducer from './searchReducer';
-import AddAlbumReducer from './addAlbumReducer';
+import AlbumsReducer from './albumsReducer';
 
 
 const rootReducer = combineReducers({
     search: SearchReducer,
-    albums: AddAlbumReducer
+    albums: AlbumsReducer
 });
 
 export default rootReducer;
