@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { clearSearch } from '../actions/index';
-import { Jumbotron, Button, Glyphicon, Modal, ModalHeader, ModalBody } from 'react-bootstrap';
+import { Jumbotron, Button, Glyphicon, Modal, ModalHeader, ModalBody, Row, Col } from 'react-bootstrap';
 
 import SearchBar from '../containers/searchContainer';
 import SearchList from '../containers/searchList';
@@ -38,16 +38,24 @@ class SearchOverlay extends Component {
         const noAlbums = !albums || albums.length == 0;
 
         const noAlbumsJSX = (
-            <Jumbotron className="search-jumbotron">
-                <h1>OBS!</h1>
-                <p>
-                    Det ser ikke ut til at du har lagt inn noen <i>album</i> enda.<br/>
-                    Gjør ditt første søk her:<br/><br/>
-                    <Button bsStyle="primary" bsSize="large" onClick={this.handleOpenModal} >
-                        <Glyphicon glyph="search" />
-                    </Button>
-                </p>
-            </Jumbotron>
+            <div className="vertical-center">
+                <Jumbotron>
+                    <Row>
+                        <Col xs={12} >
+                            <h1>OBS!</h1>
+                        </Col>
+                        <Col xs={12} >
+                            <p>Det ser ikke ut til at du har lagt inn noen <i>album</i> enda.</p>
+                        </Col>
+                        <Col xs={12} >
+                            <Button bsStyle="primary" bsSize="large" onClick={this.handleOpenModal} >
+                                Utforsk &nbsp;
+                                <Glyphicon glyph="search" />
+                            </Button>
+                        </Col>
+                    </Row>
+                </Jumbotron>
+            </div>
         );
 
         const someAlbumsJSX = (
