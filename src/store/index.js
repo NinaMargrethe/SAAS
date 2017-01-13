@@ -3,7 +3,7 @@ import ReduxPromise from 'redux-promise';
 import reducers from '../reducers';
 import DevTools from '../containers/devTools';
 
-const LOCAL_STORAGE_KEY = 'SuperAwesomeAlbumSearch';
+const LOCAL_STORAGE_KEY = '1SuperAwesomeAlbumSearch';
 
 // May be used to store default values at reducers key's
 // Check if something is saved to localstorage, if so use it as initial state.

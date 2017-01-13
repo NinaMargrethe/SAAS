@@ -60,7 +60,7 @@ class SearchOverlay extends Component {
                     show={this.state.showModal}
                     onHide={this.handleCloseModal}
                     contentLabel="Search for album photos and add them to your album view.">
-                    <ModalHeader closeButton>
+                    <ModalHeader>
                         <SearchBar/>
                     </ModalHeader>
                     <ModalBody>

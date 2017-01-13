@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchAlbums } from '../actions/index';
-import { Navbar, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Navbar, FormGroup, FormControl, Button, InputGroup, Glyphicon } from 'react-bootstrap';
 
 class SearchBar extends Component{
     constructor(props){
@@ -20,21 +20,25 @@ class SearchBar extends Component{
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">Finn Album</a>
+                        <p>Finn Album</p>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                    <Navbar.Form pullLeft>
+                    <Navbar.Form>
                         <form onSubmit={this.onSubmit}>
                             <FormGroup>
-                                <FormControl
-                                    inputRef={ref => { this.searchBar = ref; }}
-                                    onChange={this.onChange}
-                                    type="text"
-                                />
+                                <InputGroup bsSize="lg">
+                                    <FormControl
+                                        inputRef={ref => { this.searchBar = ref; }}
+                                        onChange={this.onChange}
+                                        type="text"
+                                    />
+                                    <InputGroup.Addon>
+                                        <Glyphicon glyph="search" />
+                                    </InputGroup.Addon>
+                                </InputGroup>
                             </FormGroup>
-                            <Button className="search-overlay-button" type="submit">Søk</Button>
                         </form>
                     </Navbar.Form>
                 </Navbar.Collapse>

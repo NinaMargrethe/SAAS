@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Col, Image, Row } from 'react-bootstrap';
 
 class AlbumList extends Component{
     constructor(props){
@@ -8,21 +9,21 @@ class AlbumList extends Component{
 
     render(){
         return(
-          <div className="row">
+          <Row>
               {this.props.albums.map(this.renderAlbumList)}
-          </div>
+          </Row>
 
         );
     }
 
     renderAlbumList(album, counter){
         return(
-            <div className="col-md-4" key={counter}>
-                <a href={album.id}>
-                    <img src={album.images[1].url} alt={album.name} className="img-responsive img-circle"/>
-                    {album.name}
+            <Col md={3} sm={6} key={counter}>
+                <a target="_blank" href={ album.id }>
+                    <Image src={ album.images[1].url } alt={ album.name } responsive circle />
+                    { album.name }
                 </a>
-            </div>
+            </Col>
         )
     }
 }
