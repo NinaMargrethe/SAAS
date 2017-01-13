@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import ReduxPromise from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
 import reducers from '../reducers';
 import DevTools from '../containers/devTools';
 import { persistStore, autoRehydrate } from 'redux-persist';
 
 // Include to use extra features as middleware and dev tools
 const enhancers = compose(
-    applyMiddleware(ReduxPromise),
+    applyMiddleware(ReduxThunk),
     autoRehydrate(), // For localstorage
     DevTools.instrument()
 );

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { addAlbum, searchAlbumsFromLink } from '../actions/index';
-import { Image, Row, Col, Thumbnail, Grid, Pager } from 'react-bootstrap';
+import { addAlbum, searchAlbums } from '../actions/index';
+import { Image, Row, Col, Thumbnail, Grid, Pagination } from 'react-bootstrap';
 
 
 const IMAGE_SIZE_SMALL = { min: 50, max: 100 };
@@ -13,19 +13,27 @@ class SearchList extends Component {
 
     constructor(props){
         super(props);
+
+        this.state = {
+            activePage: 1
+        };
+
         this.renderSearchResult = this.renderSearchResult.bind(this);
     }
 
     render() {
         // Fetch all results from search
-        const { searchResult } = this.props;
+        const { searchResult, query } = this.props;
 
         if(!searchResult) return null;
 
+        console.log(searchResult);
+
         // Fetching the links for next and previous 20 results as well as
         // id, name, artists and images for the current viewed albums
-        const nextLink = searchResult.albums.next;
-        const prevLink = searchResult.albums.previous;
+        const { next, previous, offset, limit, total } = searchResult.albums;
+        const totalNumberOfLinks = _.ceil(total/limit);
+
         const albums = searchResult.albums.items.map(album => {
             const id = album.external_urls.spotify;
             const name = album.name;
@@ -35,6 +43,7 @@ class SearchList extends Component {
                 id, name, artists, images
             };
         });
+
 
 
         const noAlbumsFoundJSX = (
@@ -48,10 +57,18 @@ class SearchList extends Component {
                         { albums.map(this.renderSearchResult) }
                     </Row>
                 </Grid>
-                <Pager>
-                    <Pager.Item previous disabled={ !prevLink } onSelect={this.onPrevLinkClink.bind(this, prevLink )} >&larr; Previous</Pager.Item>
-                    <Pager.Item next disabled={ !nextLink } onSelect={this.onNextLinkClick.bind(this, nextLink )} >Next &rarr;</Pager.Item>
-                </Pager>
+                <div className="text-center">
+                    <Pagination
+                        prev
+                        next
+                        first
+                        last
+                        boundaryLinks
+                        items={totalNumberOfLinks}
+                        maxButtons={5}
+                        activePage={this.state.activePage}
+                        onSelect={this.onPageSelect.bind(this, query, limit)} />
+                </div>
             </div>
         );
 
@@ -83,23 +100,22 @@ class SearchList extends Component {
         );
     }
 
+    onPageSelect(query, limit, pageNumber) {
+        const offset = limit * (pageNumber - 1);
+        this.setState({ activePage: pageNumber })
+        this.props.searchAlbums(query, offset);
+    }
+
     onAlbumClick(album) {
         this.props.addAlbum(album);
-    }
-
-    onNextLinkClick(link) {
-        this.props.searchAlbumsFromLink(link);
-    }
-
-    onPrevLinkClink(link) {
-        this.props.searchAlbumsFromLink(link);
     }
 }
 
 function mapStateToProps(state) {
     return {
-        searchResult : state.search.searchResult
+        searchResult : state.search.searchResult,
+        query : state.search.query
     };
 }
 
-export default connect(mapStateToProps, { addAlbum, searchAlbumsFromLink })(SearchList);
+export default connect(mapStateToProps, { addAlbum, searchAlbums })(SearchList);

@@ -6,22 +6,21 @@ export const ADD_ALBUM = 'ADD_ALBUM';
 export const DELETE_ALBUM = 'DELETE_ALBUM';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 
-export function searchAlbumsFromLink(link) {
-    const request = axios.get(link);
 
-    return {
-        type: SEARCH_ALBUMS,
-        payload: request
-    }
-}
+export function searchAlbums(query, offset = 0) {
 
-export function searchAlbums(query) {
-    const request = axios.get(`${ROOT_URL_FOR_SEARCH}?q=${query}&type=album`);
-
-    return {
-        type: SEARCH_ALBUMS,
-        payload: request
-    }
+    // redux-thunk style
+    return dispatch =>
+        axios.get(`${ROOT_URL_FOR_SEARCH}?q=${query}&offset=${offset}&type=album`)
+            .then(response => {
+                dispatch({
+                    type: SEARCH_ALBUMS,
+                    query: query,
+                    result: response.data
+                })
+            }).catch(error => {
+                console.log("Search Albums Error: ", error);
+            });
 }
 
 export function clearSearch() {
