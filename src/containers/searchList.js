@@ -29,10 +29,10 @@ class SearchList extends Component {
 
         console.log(searchResult);
 
-        // Fetching the links for next and previous 20 results as well as
-        // id, name, artists and images for the current viewed albums
-        const { next, previous, offset, limit, total } = searchResult.albums;
-        const totalNumberOfLinks = _.ceil(total/limit);
+        // Fetching the limit and total results for current search
+        // and calculate number of pages necessary
+        const { limit, total } = searchResult.albums;
+        const totalNumberOfPages = _.ceil(total/limit);
 
         const albums = searchResult.albums.items.map(album => {
             const id = album.external_urls.spotify;
@@ -64,7 +64,7 @@ class SearchList extends Component {
                         first
                         last
                         boundaryLinks
-                        items={totalNumberOfLinks}
+                        items={totalNumberOfPages}
                         maxButtons={5}
                         activePage={this.state.activePage}
                         onSelect={this.onPageSelect.bind(this, query, limit)} />
