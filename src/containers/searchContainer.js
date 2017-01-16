@@ -33,6 +33,7 @@ class SearchBar extends Component{
                                         inputRef={ref => { this.searchBar = ref; }}
                                         onChange={this.onChange}
                                         type="text"
+                                        autoFocus
                                     />
                                     <InputGroup.Addon>
                                         <Glyphicon glyph="search" />

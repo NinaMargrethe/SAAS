@@ -102,7 +102,7 @@ class SearchList extends Component {
 
     onPageSelect(query, limit, pageNumber) {
         const offset = limit * (pageNumber - 1);
-        this.setState({ activePage: pageNumber })
+        this.setState({ activePage: pageNumber });
         this.props.searchAlbums(query, offset);
     }
 
